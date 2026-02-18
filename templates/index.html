@@ -1,0 +1,51 @@
+<html lang="rus">
+    <head>
+        <title>Web</title>
+        <link rel="stylesheet" href="/static/styles/index_style.css">
+        <style>
+
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 24px;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            .products-grid .card {
+                margin: 0; 
+            }
+        </style>
+    </head>
+    <header>
+        <h1>
+            <a href="/" style="color: #19606c; text-decoration: none;">Домой</a>
+        </h1>
+        <form action="/" method="GET">
+            <input type="text" name="query" style="width: 690px; height: 48px;" placeholder="Найти компонент" value="{{ .query }}">
+            <button type="submit" style="position: relative; left: -50px; width: 40px; height: 40px; margin-bottom: 10px;">Поиск</button>
+        </form>
+    </header>
+    
+    <div class="space">
+
+        <div class="container products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; padding: 20px; box-sizing: border-box;">
+            {{ range .devices }}
+            <div class="card" style="margin: 0;">
+                <img src="http://localhost:9000/test/{{ .Photo }}" alt="img" class="image">
+                <h1 style="min-height: 33.6px;">{{ .Title }}</h1>
+                <p>{{ .Power_dis }} Вт</p>
+                <div class="row" style="display: flex; justify-content: space-between; gap: 10px; align-self: start; margin-left: 20px;">
+                    <a href="/order/{{ .ID }}" class="card-button">Подробнее</a>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <a href="/cart" class="app-button" style="width: 130px; height: 130px;">
+        <img src="/static/img/shop.png" style="height: 100px; width: 100px;" alt="Корзина">
+        {{ if .cartCount }}
+            <span class="cart-badge">{{ .cartCount }}</span>
+        {{ end }}
+    </a>
+</html>

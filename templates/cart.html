@@ -1,0 +1,46 @@
+<html lang="rus">
+    <head>
+        <title>Web</title>
+        <link rel="stylesheet" href="/static/styles/index_style.css">
+    </head>
+     <header>
+        <h1>
+            <a href="/" style="color: #19606c; text-decoration: none;">Домой</a>
+        </h1>
+    </header>
+    
+
+    <div class="container-3">
+        <p style="width: 200px; margin-left: 236px">Имя</p>
+        <p style="width: 140px; margin-left: 177px; margin-bottom: 20px">Рассеивающая мощность</p>
+        <p style="width: 130px; margin-left: 25px; margin-bottom: 45px">Скорость воздушного потока</p>
+        <p style="width: 140px; margin-left: 30px; margin-bottom: 45px">Температура компонента</p>
+    </div>
+    
+
+    <div class="container-2">
+        {{ range .service_devices }}
+        <div class="order-card">
+            <img src="http://localhost:9000/test/{{ .Photo }}" alt="img" style="width: 200px; height: 200px; margin-left: 15px;" class="image">
+            <div class="row" style="display: flex; gap: 20px; align-items: center;">
+                <p style="width: 379px;">{{ .Title }}</p>
+                <p style="width: 110px;">{{ .Power_dis }} кВт</p>
+                <input type="number" value="1" min="1" style="text-align: center; font-size: 16px; border: 2px solid #828282; border-radius: 6px; width: 102px; margin-left: 15px;">
+                
+
+                <input type="number" value="150" min="-50" max="300" style="text-align: center; font-size: 16px; border: 2px solid #828282; border-radius: 6px; width: 102px; margin-left: 40px;" title="°C">
+                <span style="margin-left: -45px; color: #666; font-size: 14px;">°C</span>
+                
+
+                <button type="submit" style="width: 87px; height: 24px; margin-left: 20px; margin-top: 30px;">Сохранить</button>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+    
+
+    <div class="row" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px; margin-top: 30px">
+        <button type="submit" style="background-color: #19606c; border-radius: 6px; color: white; width: 168px; height: 40px;">Оформить заявку</button>
+        <button type="submit" style="background-color: white; border-radius: 6px; border: 1px solid #19606c; color: #19606c; width: 168px; height: 40px;">Удалить заявку</button>
+    </div>
+</html>

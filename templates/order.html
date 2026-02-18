@@ -1,0 +1,19 @@
+<html lang = "rus">
+    <head>
+        <title>Web</title>
+        <link rel="stylesheet" href="/static/styles/index_style.css">
+    </head>
+     <header>
+        <h1>
+            <a href = "/" style = "color: #19606c; text-decoration: none;">Домой</a>
+        </h1>
+    </header>
+    <div class="order-card" style = "height: 400px;">
+        <img src="http://localhost:9000/test/{{ .device.Photo }}" alt="img" class = "image">
+        <div class = "row" style = "display: flex; flex-direction: column; gap: 10px;">
+            <h1>{{ .device.Title }}</h1>
+            <p>{{ .device.Power_dis }} Вт</p>
+            <p>{{ .device.Description }}</p>
+        </div>
+    </div>
+</html>
