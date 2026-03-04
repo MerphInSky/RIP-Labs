@@ -1,0 +1,53 @@
+<html lang="ru">
+    <head>
+        <title>Заявка — Расчёт нагрева</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <a href="/" class="header-home">
+                <img src="/static/img/logo.png" alt="ShardDB" class="header-home__icon">
+            </a>
+        </header>
+        <div class="heating-detail">
+            <div class="heating-detail__header-card">
+                <h1 class="heating-detail__title">Заявка на расчёт нагрева</h1>
+                <p class="heating-detail__description">
+                    <strong>Условия охлаждения:</strong> {{ printf "%.1f" .load.AmbientTemperature }} °C
+                </p>
+                <div class="heating-detail__info">
+                    <div class="heating-detail__info-item"><strong>ID заявки:</strong> {{ .heating_id }}</div>
+                    <div class="heating-detail__info-item"><strong>Компонентов в заявке:</strong> {{ len .items }}</div>
+                </div>
+            </div>
+
+            <table class="load-table">
+                <thead>
+                    <tr>
+                        <th class="load-table__col-photo">Изображение</th>
+                        <th>Компонент</th>
+                        <th>Мощность, Вт</th>
+                        <th>Температура, °C</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .items }}
+                    <tr>
+                        <td class="load-table__col-photo">
+                            <img src="{{ $.minioUrl }}/{{ .Component.PhotoURL }}" alt="{{ .Component.Title }}">
+                        </td>
+                        <td>{{ .Component.Title }}</td>
+                        <td>{{ .PowerDissipation }}</td>
+                        <td class="load-table__col-result">{{ printf "%.1f" (num .Heat) }} мс</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+
+            <form method="POST" action="/heatings/delete" style="margin-top: 24px;">
+                <input type="hidden" name="heating_id" value="{{ .heating_id }}">
+                <button type="submit" class="btn-delete">Удалить заявку</button>
+            </form>
+        </div>
+    </body>
+</html>
