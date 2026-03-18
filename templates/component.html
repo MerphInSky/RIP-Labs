@@ -1,0 +1,45 @@
+<html lang="ru">
+    <head>
+        <title>{{ .component.Title }} — Подробная информация</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <a href="/" class="header-home">
+                <img src="/static/img/logo.png" alt="ThermalCalc" class="header-home__icon">
+            </a>
+        </header>
+        
+        <div class="detail-wrapper">
+            <!-- Обёртка для наложения контента на видео -->
+            <div class="video-overlay-wrapper">
+                
+                <!-- Видео на фоне -->
+                <div class="video-background">
+                    <video class="detail-card__video" controls autoplay muted loop playsinline>
+                        <source src="http://localhost:9000/test/{{ .component.Video }}" type="video/mp4">
+                    </video>
+                    <!-- Затемнение для читаемости текста -->
+                    <div class="video-overlay__gradient"></div>
+                </div>
+
+                <!-- Контент поверх видео -->
+                <div class="content-overlay">
+                    <div class="content-overlay__inner">
+                        <h1 class="detail-card__title">{{ .component.Title }}</h1>
+                        
+                        <p class="detail-card__description">{{ .component.Description }}</p>
+                        <form method="POST" action="/heatings/add" style="margin-top: 24px;">
+                            <input type="hidden" name="component_id" value="{{ .component.ComponentID }}">
+                        </form>
+                        
+                        <div class="load-info-block__row load-info-block__row--result">
+                            <strong>Тепловое сопротивление:</strong> {{ printf "%.1f" .component.ThermalResistance }} °C/Вт
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<html lang="ru">
+    <head>
+        <title>Нагрев компонентов — Каталог</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
+    <body>
+        <header>
+            <a href="/" class="header-home">
+                <img src="/static/img/logo.png"  class="header-home__icon">
+            </a>
+        </header>
+        <div class="toolbar">
+            <form action="/" method="GET" class="search-form">
+                <input type="text" name="query" class="search-input" placeholder="Поиск компонентов" value="{{ .query }}">
+                <button type="submit" class="search-btn">Найти</button>
+            </form>
+            {{ if ne .heating_count 0 }}
+            <a href="/heatings/{{ .heating_id }}" class="heating-icon" title="Текущая заявка">
+                <img src="/static/img/logo.png" alt="{{ .Title }}" width="32" height="32" class="heating-icon__image">      
+                <span class="heating-icon__badge">{{ .heating_count }}</span>
+            </a>
+            {{ else }}
+            <div class="heating-icon heating-icon--inactive" title="Нет активной заявки">
+                <img src="/static/img/logo.png" alt="{{ .Title }}" width="32" height="32" class="heating-icon__image">
+                <span class="heating-icon__badge heating-icon__badge--empty">0</span>
+            </div>
+            {{ end }}
+        </div>
+        <div class="space">
+            <div class="container">
+                {{ range .components }}
+                <div class="card-wrapper">
+                    <a href="/components/{{ .ComponentID }}" class="card" data-video="{{ $.minioUrl }}/{{ .Video }}">
+                        <img src="{{ $.minioUrl }}/{{ .PhotoURL }}" alt="{{ .Title }}">
+                        <div class="card__body">
+                            <h2 class="card__title">{{ .Title }}</h2>
+                            <div class="card__coefficients">
+                                <span title="Тепловое сопротивление">{{ printf "%.1f" .ThermalResistance }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <form method="POST" action="/heatings/add" class="card-add-form">
+                        <input type="hidden" name="component_id" value="{{ .ComponentID }}">
+                        <button type="submit" class="card-add-btn">Добавить в заявку</button>
+                    </form>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </body>
+</html>
